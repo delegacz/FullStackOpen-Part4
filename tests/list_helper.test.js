@@ -46,13 +46,18 @@ const listWithOneBlog = [
         __v: 0 }
 ]
 
-const favBlog =  {
-    _id: "5a422b891b54a676234d17fa", 
-    title: "First class tests", 
-    author: "Robert C. Martin", 
-    url: "http://blog.cleancoder.com/uncle-bob/2017/05/05/TestDefinitions.htmll", 
-    likes: 10, 
+const favBlog =  { 
+    _id: "5a422b3a1b54a676234d17f9", 
+    title: "Canonical string reduction", 
+    author: "Edsger W. Dijkstra", 
+    url: "http://www.cs.utexas.edu/~EWD/transcriptions/EWD08xx/EWD808.html", 
+    likes: 12, 
     __v: 0 
+}
+
+const mostActiveAuthor = {
+    author: 'Robert C. Martin',
+    blogs: 3
 }
 
 test('dummy returns one', () => {
@@ -67,8 +72,13 @@ describe('totalLikes', () => {
 })
   
 describe('favoriteBlog', () => {
-  test('should match entry with most likes', () => {
-    expect(listHelper.favoriteBlog(listWithOneBlog)).toEqual(favBlog)
+    test('should match entry with most likes', () => {
+      expect(listHelper.favoriteBlog(listWithOneBlog)).toEqual(favBlog)
+    })
   })
-})
-
+  
+describe('mostBlogs', () => {
+    test('should provided object', () => {
+      expect(listHelper.mostBlogs(listWithOneBlog)).toEqual(mostActiveAuthor)
+    })
+  })
