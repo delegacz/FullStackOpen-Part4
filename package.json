@@ -4,19 +4,26 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-  "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "test": "jest --verbose",
+    "lint": "eslint ."
   },
   "author": "Mateusz Delegacz",
   "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
-    "eslint": "^7.6.0",
     "express": "^4.17.1",
     "mongoose": "^5.9.27",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.4"
+  },
+  "devDependencies": {
+    "eslint": "^7.6.0",
+    "jest": "^26.2.2"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
