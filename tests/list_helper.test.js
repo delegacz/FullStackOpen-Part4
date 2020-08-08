@@ -56,8 +56,13 @@ const favBlog =  {
 }
 
 const mostActiveAuthor = {
-    author: 'Robert C. Martin',
+    author: "Robert C. Martin",
     blogs: 3
+}
+
+const mostLikedAuthor = {
+    author: "Edsger W. Dijkstra",
+    likes: 12
 }
 
 test('dummy returns one', () => {
@@ -81,4 +86,10 @@ describe('mostBlogs', () => {
     test('should provided object', () => {
       expect(listHelper.mostBlogs(listWithOneBlog)).toEqual(mostActiveAuthor)
     })
+  })
+
+ describe('mostLikes', () => {
+      test('should return provided onject', ()=> {
+          expect(listHelper.mostLikes(listWithOneBlog)).toEqual(mostLikedAuthor)
+      })
   })

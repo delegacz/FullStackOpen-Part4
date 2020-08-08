@@ -24,10 +24,29 @@ const mostBlogs = blogs => {
       "blogs": numberOfBlogs
   }
 }
+ const mostLikes = blogs => {
+
+    let authorsWithLikes = []
+    
+    _.forEach(blogs, (entry) => {
+        authorsWithLikes.push(
+            {
+            "author": entry.author,
+            "likes": entry.likes
+        })  
+    })
+    let author = authorsWithLikes.reduce((currentAuthor, comparedAuthor) => currentAuthor.likes > comparedAuthor.likes ? currentAuthor : comparedAuthor)
+    
+    
+    return author
+ 
+ }
+
 
 module.exports = {
     dummy,
     totalLikes,
     favoriteBlog,
-    mostBlogs
+    mostBlogs,
+    mostLikes
 }
