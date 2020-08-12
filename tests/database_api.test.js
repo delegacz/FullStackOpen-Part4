@@ -58,7 +58,7 @@ test('Id property exists', async () => {
 })
 
 describe('creating new blog', () => {
-    test('should be added with correct status', async () => {
+    test('should be added with correct status and content shoud match', async () => {
         newBlog =  {
             "title": "My New Test Blog Entry",
             "author": "Nani Bonifacy",
@@ -76,12 +76,33 @@ describe('creating new blog', () => {
             response.body.length = initialLength + 1
         })
         let blogs = await helper.blogsInDatabse()
-        blogTitles = blogs.map(b => b.title)
+        let blogTitles = blogs.map(b => b.title)
         expect(blogTitles).toContain(newBlog.title)
 
     })
 })
+describe('if likes are missing', () => {
+    test('likes equall to 0 when likes are missing from the submition', async () => {
 
+        newBlogWithMissingLikes = {
+            "title": "My New Test Blog Entry without likes",
+            "author": "Nani Bonifacy",
+            "url": "https://fullstackopen.com/en/part4/structure_of_backend_application_introduction_to_testing#exercises-4-1-4-2"
+        }
+
+        await api
+        .post('/api/blogs')
+        .send(newBlogWithMissingLikes)
+        .expect(response => {
+            response.body.length = initialLength + 1
+        })
+
+        let blogs = await helper.blogsInDatabse()
+        let blogWithZeroLikes = blogs.filter(b => b.title === "My New Test Blog Entry without likes").map(l => l.likes)
+
+        expect(blogWithZeroLikes[0]).toBe(0)
+    })
+})
 afterAll(() => {
     mongoose.connection.close()
 })
