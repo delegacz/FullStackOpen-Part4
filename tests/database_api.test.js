@@ -3,6 +3,8 @@ const supertest = require('supertest')
 const app = require('../app')
 
 const Blog = require('../models/blog')
+const e = require('express')
+const { response } = require('express')
 
 const api = supertest(app)
 
@@ -32,13 +34,28 @@ beforeEach(async () => {
     
     blogObject = new Blog(initialBlogs[1])
     await blogObject.save()
+
+   
 })
 
-test('Returned blog entries in JSON', async () => {
+test('Returned are 2 blogs in JSON', async () => {
+ 
+    
     await api
       .get('/api/blogs')
       .expect(200)
       .expect('Content-Type', /application\/json/)
+      .expect(response => {
+        response.body.length = 2
+      })
+})
+
+test('Id property exists', async () => {
+   let response = await api.get('/api/blogs')
+
+   let blog = response.body.map(blog => blog.id)
+
+   expect(blog).toBeDefined()
 })
 
 afterAll(() => {
