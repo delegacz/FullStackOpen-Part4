@@ -36,25 +36,26 @@ beforeEach(async () => {
         await blogObject.save()
     }
 })
+describe('when there are blog initialy saved', () => {
 
+    test('Returned are 2 blogs in JSON', async () => {
 
-test('Returned are 2 blogs in JSON', async () => {
+        await api
+          .get('/api/blogs')
+          .expect(200)
+          .expect('Content-Type', /application\/json/)
+          .expect(response => {
+            response.body.length = initialLength
+          })
+    })
 
-    await api
-      .get('/api/blogs')
-      .expect(200)
-      .expect('Content-Type', /application\/json/)
-      .expect(response => {
-        response.body.length = initialLength
-      })
-})
-
-test('Id property exists', async () => {
-   let response = await api.get('/api/blogs')
-
-   let blog = response.body.map(blog => blog.id)
-
-   expect(blog).toBeDefined()
+    test('Id property exists', async () => {
+        let response = await api.get('/api/blogs')
+     
+        let blog = response.body.map(blog => blog.id)
+     
+        expect(blog).toBeDefined()
+     })
 })
 
 describe('creating new blog', () => {
@@ -80,8 +81,6 @@ describe('creating new blog', () => {
         expect(blogTitles).toContain(newBlog.title)
 
     })
-})
-describe('if likes are missing', () => {
     test('likes equall to 0 when likes are missing from the submition', async () => {
 
         newBlogWithMissingLikes = {
@@ -101,9 +100,6 @@ describe('if likes are missing', () => {
 
         expect(blogWithZeroLikes[0]).toBe(0)
     })
-})
-
-describe('if required fields are missing from posted blog', () => {
     test('expect status 400 when title and url is missing', async () => {
         newBlogWithMissingKeysAndValues = {
             "author": "Nani Bonifacy",
@@ -116,6 +112,7 @@ describe('if required fields are missing from posted blog', () => {
         .expect(400)
     })
 })
+
 afterAll(() => {
     mongoose.connection.close()
 })
