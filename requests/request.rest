@@ -1,10 +1,10 @@
 
-POST http://localhost:3003/api/blogs
+POST   http://localhost:3003/api/blogs/
 Content-Type: application/json
 
-{
-
-    "author": "Masda legdasdacz",
-    "url": "https://fullstackopen.com/en/part4/structure_of_backend_application_introduction_to_testing#exercises-4-1-4-2",
-    "likes": 12
-}
+  {
+    "titlee": "Bonifacy Zjebany",
+    "author": "072311212 22332",
+    "url": "xx",
+    "id": "5f1da34bf4291409502a6033"
+  }

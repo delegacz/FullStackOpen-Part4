@@ -3,8 +3,7 @@ const supertest = require('supertest')
 const app = require('../app')
 const helper = require('../utils/database_api_helper')
 const Blog = require('../models/blog')
-const e = require('express')
-const { response } = require('express')
+
 
 const api = supertest(app)
 
@@ -113,6 +112,28 @@ describe('creating new blog', () => {
     })
 })
 
+describe('deletion of the blog posts', () => {
+    test('remove blog by id get code 204 and lenght of conent is shortened by 1', async () => {
+        const idToBeRemoved = '5a422aa71b54a676234d17f8'
+        startingContentLenght = await helper.blogsInDatabse().length
+        await api
+        .delete(`/api/blogs/${idToBeRemoved}`)
+        .expect(204)
+        .expect( response => response.body.length = startingContentLenght - 1 )
+        
+    })
+})
+describe('updating single blog post', () => {
+    test('increase likes by one', async () => {
+       const updatedId = '5a422a851b54a676234d17f7'
+        const likes = initialBlogs[0].likes
+       await api
+       .put(`/api/blogs/${updatedId}`)
+       .send(initialBlogs[0])
+       .expect(200)
+       
+    })
+})
 afterAll(() => {
     mongoose.connection.close()
 })
