@@ -89,7 +89,6 @@ describe('if likes are missing', () => {
             "author": "Nani Bonifacy",
             "url": "https://fullstackopen.com/en/part4/structure_of_backend_application_introduction_to_testing#exercises-4-1-4-2"
         }
-
         await api
         .post('/api/blogs')
         .send(newBlogWithMissingLikes)
@@ -101,6 +100,20 @@ describe('if likes are missing', () => {
         let blogWithZeroLikes = blogs.filter(b => b.title === "My New Test Blog Entry without likes").map(l => l.likes)
 
         expect(blogWithZeroLikes[0]).toBe(0)
+    })
+})
+
+describe('if required fields are missing from posted blog', () => {
+    test('expect status 400 when title and url is missing', async () => {
+        newBlogWithMissingKeysAndValues = {
+            "author": "Nani Bonifacy",
+            "likes": 12
+        }
+
+        await api
+        .post('/api/blogs')
+        .send(newBlogWithMissingKeysAndValues)
+        .expect(400)
     })
 })
 afterAll(() => {

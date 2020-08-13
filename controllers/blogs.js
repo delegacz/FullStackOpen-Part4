@@ -10,8 +10,11 @@ blogRouter.get('/', (request, response) => {
   })
   
   blogRouter.post('/', (request, response) => {
-     
-      
+      let data = request.body
+      if( data.title === undefined || data.url === undefined ) {
+        response.status(400).end()
+      }
+      else {
 
       const blog = new Blog({
           title: request.body.title,
@@ -25,6 +28,7 @@ blogRouter.get('/', (request, response) => {
       .then(result => {
         response.status(201).json(result)
       })
+      }
   })
 
 
