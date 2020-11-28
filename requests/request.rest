@@ -1,10 +1,10 @@
 
-POST   http://localhost:3003/api/blogs/
+POST   http://localhost:3001/api/users/
 Content-Type: application/json
 
   {
-    "titlee": "Bonifacy Zjebany",
-    "author": "072311212 22332",
-    "url": "xx",
-    "id": "5f1da34bf4291409502a6033"
+    "username": "admin",
+    "name": "Mateusz Delegacz",
+    "password": "admin1"
   }
+  
