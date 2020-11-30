@@ -3,6 +3,7 @@ const supertest = require('supertest')
 const app = require('../app')
 const helper = require('../utils/database_api_helper')
 const Blog = require('../models/blog')
+const { response } = require('express')
 
 
 const api = supertest(app)
@@ -132,6 +133,34 @@ describe('updating single blog post', () => {
        .send(initialBlogs[0])
        .expect(200)
        
+    })
+})
+
+describe('creating a new user', () => {
+    test('create the user with too short of a username', async() => {
+        let error = null;
+        try{
+            const user = new User({
+                "username": 'a',
+                "name": 'Mateusz Delegacz',
+                "password": 'dasd231asda'
+            })
+            await user.validate();
+        } catch(e) {
+            error =e;
+        }
+        expect(error).not.toBeNull();
+    })
+    test('create a user with too short of a password', async()=> {
+        await api
+        .post('/api/users')
+        .send({
+            "username": 'sadasd2',
+            "name": 'Mateusz Delegacz',
+            "password": '2a'
+        })
+        .expect(response => response == {"error": "passowrd must be at leasr  3 characters long"})
+
     })
 })
 afterAll(() => {
